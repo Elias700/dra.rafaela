@@ -1,0 +1,89 @@
+<div class="header-inner" (keydown)="open() && trapFocus($event)">
+  <div class="bar">
+    <a class="brand" href="/#inicio" (click)="goTop($event)">
+      <app-logo />
+      <span class="visually-hidden">(voltar ao início)</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Principal">
+      <ul role="list">
+        @for (item of nav; track item.id) {
+          <li>
+            <a class="nav-link" [href]="'/#' + item.id" appNavHover (click)="go($event, item.id)">
+              <span class="nav-roll">
+                <span data-roll>{{ item.label }}</span>
+                <span data-roll aria-hidden="true">{{ item.label }}</span>
+              </span>
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <a
+      class="btn btn--sm cta"
+      [class.btn--whatsapp]="ctaIsWhatsapp"
+      [href]="ctaHref"
+      [attr.target]="ctaIsWhatsapp ? '_blank' : null"
+      [attr.rel]="ctaIsWhatsapp ? 'noopener' : null"
+      appMagnetic
+      (click)="onCta($event)"
+    >
+      @if (ctaIsWhatsapp) {
+        <app-icon name="whatsapp" />
+      }
+      {{ ctaLabel }}
+    </a>
+
+    <button
+      #menuButton
+      type="button"
+      class="menu-btn"
+      aria-controls="menu-mobile"
+      [attr.aria-expanded]="open()"
+      (click)="toggle()"
+    >
+      <span class="visually-hidden">{{ open() ? 'Fechar menu' : 'Abrir menu' }}</span>
+      <span class="menu-btn__icon" aria-hidden="true"><span></span><span></span></span>
+    </button>
+  </div>
+
+  <div
+    #panel
+    id="menu-mobile"
+    class="menu"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu"
+    [attr.inert]="open() ? null : ''"
+  >
+    <nav aria-label="Principal (menu)">
+      <ul role="list" class="menu__list">
+        @for (item of nav; track item.id; let i = $index) {
+          <li [style.--i]="i">
+            <a class="menu__link" [href]="'/#' + item.id" (click)="go($event, item.id)">
+              <span class="menu__num" aria-hidden="true">0{{ i + 1 }}</span>
+              {{ item.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+    <div class="menu__foot" [style.--i]="nav.length">
+      <a
+        class="btn"
+        [class.btn--whatsapp]="ctaIsWhatsapp"
+        [href]="ctaHref"
+        [attr.target]="ctaIsWhatsapp ? '_blank' : null"
+        [attr.rel]="ctaIsWhatsapp ? 'noopener' : null"
+        (click)="onCta($event)"
+      >
+        @if (ctaIsWhatsapp) {
+          <app-icon name="whatsapp" />
+        }
+        {{ ctaLabel }}
+      </a>
+      <p class="menu__cro">{{ cro }}</p>
+    </div>
+  </div>
+</div>

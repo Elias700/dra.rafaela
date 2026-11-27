@@ -1,0 +1,5 @@
+# TODO(domínio): trocar https://SEU-DOMINIO pela URL de produção.
+User-agent: *
+Allow: /
+
+Sitemap: https://SEU-DOMINIO/sitemap.xml

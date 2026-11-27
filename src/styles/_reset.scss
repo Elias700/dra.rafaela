@@ -1,0 +1,66 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  // Telas grandes (acima de 1920×1080): tudo em rem cresce junto, limitado pela largura e
+  // pela altura. Abaixo disso vale 100% (respeita o tamanho de fonte do navegador).
+  font-size: clamp(100%, 40% + min(0.5vw, 0.8889vh), 162.5%);
+  // Âncoras nativas (sem JS ou com reduced-motion) compensam o header fixo.
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
+body {
+  min-height: 100svh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+  padding: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+}

@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  padding: calc(var(--header-h) + var(--space-xl)) 0 var(--space-section);
+}
+
+.privacy {
+  display: grid;
+  gap: var(--space-s);
+
+  h1 {
+    font-size: var(--fs-h2);
+  }
+
+  h2 {
+    margin-top: var(--space-m);
+    font-size: var(--fs-h3);
+  }
+
+  ul {
+    display: grid;
+    gap: 0.25rem;
+    padding-left: 1.25rem;
+  }
+
+  p,
+  li {
+    max-width: 42rem;
+    color: var(--c-text);
+  }
+}
+
+.privacy__back {
+  justify-self: start;
+}
+
+.privacy__updated {
+  color: var(--c-muted);
+}
+
+.privacy__draft {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-s);
+  background: var(--c-tint);
+  color: var(--c-deep) !important;
+  font-weight: 600;
+}

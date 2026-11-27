@@ -1,0 +1,195 @@
+<section id="contato" class="contact" aria-labelledby="contato-title" appFrameShrink>
+  <div class="contact__frame" data-frame aria-hidden="true"></div>
+
+  <div class="contact__content" data-frame-content>
+    <div class="contact__intro">
+      <h2 id="contato-title" class="contact__title">{{ content.title }}</h2>
+      <p class="lead">{{ content.lead }}</p>
+
+      @if (whatsapp) {
+        <a
+          class="btn btn--whatsapp contact__cta"
+          [href]="whatsapp"
+          target="_blank"
+          rel="noopener"
+          appMagnetic
+        >
+          <app-icon name="whatsapp" />
+          Agendar pelo WhatsApp
+          <span class="visually-hidden">(abre em nova aba)</span>
+        </a>
+      }
+
+      <ul class="contact__channels" role="list">
+        @if (contact.phoneDisplay && contact.phoneE164) {
+          <li>
+            <a [href]="'tel:' + contact.phoneE164"
+              ><app-icon name="phone" />{{ contact.phoneDisplay }}</a
+            >
+          </li>
+        }
+        @if (contact.email) {
+          <li>
+            <a [href]="'mailto:' + contact.email"><app-icon name="mail" />{{ contact.email }}</a>
+          </li>
+        }
+        @if (contact.instagram) {
+          <li>
+            <a [href]="contact.instagram" target="_blank" rel="noopener">
+              <app-icon name="instagram" />Instagram<span class="visually-hidden">
+                (abre em nova aba)</span
+              >
+            </a>
+          </li>
+        }
+      </ul>
+
+      <div class="contact__cfo">
+        <p>{{ dentist.name }} — {{ dentist.title }} — {{ dentist.cro }}</p>
+        <p>
+          {{ clinic.name }} — {{ clinic.epao }} — Responsável técnico(a): {{ dentist.name }},
+          {{ dentist.cro }}
+        </p>
+      </div>
+    </div>
+
+    <form
+      class="contact-form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      novalidate
+      aria-labelledby="form-title"
+    >
+      <h3 id="form-title" class="contact-form__title">{{ content.formTitle }}</h3>
+      <p class="contact-form__hint">Todos os campos são obrigatórios.</p>
+
+      <div class="field">
+        <label for="cf-name">Nome</label>
+        <input
+          id="cf-name"
+          type="text"
+          formControlName="name"
+          autocomplete="name"
+          [attr.aria-invalid]="showError('name')"
+          [attr.aria-describedby]="showError('name') ? 'cf-name-error' : null"
+        />
+        @if (showError('name')) {
+          <p id="cf-name-error" class="field__error">Informe seu nome.</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="cf-phone">Telefone / WhatsApp</label>
+        <input
+          id="cf-phone"
+          type="tel"
+          inputmode="tel"
+          formControlName="phone"
+          autocomplete="tel-national"
+          placeholder="(00) 00000-0000"
+          (input)="onPhoneInput($event)"
+          [attr.aria-invalid]="showError('phone')"
+          [attr.aria-describedby]="showError('phone') ? 'cf-phone-error' : null"
+        />
+        @if (showError('phone')) {
+          <p id="cf-phone-error" class="field__error">
+            Informe um telefone com DDD, ex.: (00) 00000-0000.
+          </p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="cf-interest">Tratamento de interesse</label>
+        <select
+          id="cf-interest"
+          formControlName="interest"
+          [attr.aria-invalid]="showError('interest')"
+          [attr.aria-describedby]="showError('interest') ? 'cf-interest-error' : null"
+        >
+          <option value="" disabled>Selecione</option>
+          @for (option of content.interestOptions; track option) {
+            <option [value]="option">{{ option }}</option>
+          }
+        </select>
+        @if (showError('interest')) {
+          <p id="cf-interest-error" class="field__error">Escolha uma opção.</p>
+        }
+      </div>
+
+      <fieldset
+        class="field field--radios"
+        [attr.aria-invalid]="showError('period')"
+        [attr.aria-describedby]="showError('period') ? 'cf-period-error' : null"
+      >
+        <legend>Melhor período para contato</legend>
+        <div class="radios">
+          @for (option of content.periodOptions; track option; let i = $index) {
+            <label class="radio">
+              <input
+                type="radio"
+                formControlName="period"
+                [value]="option"
+                [attr.id]="i === 0 ? 'cf-period-first' : null"
+              />
+              <span>{{ option }}</span>
+            </label>
+          }
+        </div>
+        @if (showError('period')) {
+          <p id="cf-period-error" class="field__error">Escolha um período.</p>
+        }
+      </fieldset>
+
+      <div class="field field--check">
+        <label class="check">
+          <input
+            id="cf-consent"
+            type="checkbox"
+            formControlName="consent"
+            [attr.aria-invalid]="showError('consent')"
+            [attr.aria-describedby]="showError('consent') ? 'cf-consent-error' : 'cf-consent-text'"
+          />
+          <span id="cf-consent-text">
+            Autorizo o uso do meu nome e telefone apenas para retorno sobre o agendamento, conforme
+            a
+            <a routerLink="/politica-de-privacidade">Política de Privacidade</a>.
+          </span>
+        </label>
+        @if (showError('consent')) {
+          <p id="cf-consent-error" class="field__error">
+            É preciso autorizar o contato para enviarmos o retorno.
+          </p>
+        }
+      </div>
+
+      <button type="submit" class="btn contact-form__submit" [disabled]="sending()">
+        {{ sending() ? 'Enviando…' : 'Quero ser contatado' }}
+        <app-icon name="arrow-right" />
+      </button>
+
+      <div class="contact-form__status" role="status" aria-live="polite">
+        @switch (result()) {
+          @case ('sent') {
+            <p class="is-ok">
+              Recebemos seus dados. Em breve entraremos em contato para combinar o melhor horário.
+            </p>
+          }
+          @case ('whatsapp') {
+            <p class="is-ok">Abrimos o WhatsApp com a sua mensagem pronta. É só enviar.</p>
+          }
+          @case ('unconfigured') {
+            <p class="is-warn">
+              O envio pelo site ainda está sendo configurado. Por favor, entre em contato pelos
+              canais ao lado.
+            </p>
+          }
+          @case ('error') {
+            <p class="is-warn">
+              Não foi possível enviar agora. Tente novamente em instantes ou use os canais ao lado.
+            </p>
+          }
+        }
+      </div>
+    </form>
+  </div>
+</section>

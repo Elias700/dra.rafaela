@@ -1,0 +1,289 @@
+@use 'styles/mixins' as *;
+
+:host {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  color: var(--c-deep);
+  transition: color var(--dur-s) var(--ease-out);
+
+  &::before {
+    // fundo translúcido depois do topo (legibilidade sobre qualquer seção)
+    content: '';
+    position: absolute;
+    inset: 0;
+    height: var(--header-h);
+    background: rgb(251 248 243 / 0.82);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    box-shadow: 0 1px 0 var(--c-line);
+    opacity: 0;
+    transition:
+      opacity var(--dur-s) var(--ease-out),
+      background-color var(--dur-s) var(--ease-out);
+    pointer-events: none;
+  }
+}
+
+:host(.is-scrolled)::before {
+  opacity: 1;
+}
+
+:host(.is-on-dark:not(.is-open)) {
+  color: var(--c-on-dark);
+
+  &::before {
+    background: rgb(11 43 42 / 0.78);
+    box-shadow: 0 1px 0 rgb(255 255 255 / 0.08);
+  }
+
+  .logo {
+    --c-deep: var(--c-on-dark);
+  }
+
+  ::ng-deep .logo .mark {
+    background: var(--c-on-dark);
+    color: var(--c-deep-2);
+  }
+
+  .cta:not(.btn--whatsapp) {
+    --btn-bg: var(--c-on-dark);
+    --btn-fg: var(--c-deep);
+    --btn-bg-hover: #fff;
+  }
+}
+
+.bar {
+  @include container;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+  height: var(--header-h);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  // Encolhe (com reticências no logo) em vez de empurrar o menu para fora da tela.
+  flex: 0 1 auto;
+  min-width: 0;
+  min-height: var(--tap);
+  text-decoration: none;
+  border-radius: var(--radius-s);
+}
+
+// ---------------------------------------------------------------------------
+// Navegação desktop (A24)
+// ---------------------------------------------------------------------------
+.nav-desktop {
+  display: none;
+  margin-left: auto;
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.25rem, 0.1rem + 0.6vw, 1.25rem);
+    margin: 0;
+  }
+
+  @include up($bp-nav) {
+    display: block;
+  }
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding-inline: 0.4rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radius-s);
+}
+
+.nav-roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.25;
+
+  [data-roll] {
+    display: block;
+  }
+
+  [data-roll]:nth-child(2) {
+    position: absolute;
+    inset: 0;
+    visibility: hidden; // a diretiva torna visível e esconde as letras abaixo
+  }
+
+  ::ng-deep .split-char {
+    display: inline-block;
+  }
+}
+
+.cta {
+  display: none;
+  flex: none;
+  white-space: nowrap;
+  margin-left: auto;
+
+  @include up($bp-md) {
+    display: inline-flex;
+  }
+
+  @include up($bp-nav) {
+    margin-left: var(--space-s);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Botão do menu mobile (A30: traços giram)
+// ---------------------------------------------------------------------------
+.menu-btn {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-left: auto;
+  margin-right: -0.5rem;
+  border-radius: 50%;
+
+  @include up($bp-md) {
+    margin-left: 0;
+  }
+
+  @include up($bp-nav) {
+    display: none;
+  }
+}
+
+.menu-btn__icon {
+  position: relative;
+  width: 1.5rem;
+  height: 0.75rem;
+
+  span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: currentColor;
+    border-radius: 2px;
+    transition: transform var(--dur-m) var(--ease-in-out);
+  }
+
+  span:first-child {
+    top: 0;
+  }
+
+  span:last-child {
+    bottom: 0;
+  }
+}
+
+:host(.is-open) .menu-btn__icon {
+  span:first-child {
+    transform: translateY(0.33rem) rotate(-45deg);
+  }
+
+  span:last-child {
+    transform: translateY(-0.33rem) rotate(45deg);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Painel do menu mobile
+// ---------------------------------------------------------------------------
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-l);
+  padding: calc(var(--header-h) + var(--space-l)) var(--gutter) var(--space-xl);
+  background: var(--c-bg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity var(--dur-m) var(--ease-out),
+    visibility 0s linear var(--dur-m);
+
+  @include up($bp-nav) {
+    display: none;
+  }
+}
+
+:host(.is-open) .menu {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity var(--dur-m) var(--ease-out),
+    visibility 0s;
+}
+
+.menu__list {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+}
+
+.menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  min-height: 3.25rem;
+  padding-block: 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 1.4rem + 2vw, 2.5rem);
+  line-height: 1.15;
+  text-decoration: none;
+  color: var(--c-deep);
+  border-bottom: 1px solid var(--c-line);
+}
+
+.menu__num {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--c-gold-text);
+}
+
+.menu__foot {
+  display: grid;
+  gap: var(--space-s);
+  justify-items: start;
+}
+
+.menu__cro {
+  font-size: var(--fs-small);
+  color: var(--c-muted);
+}
+
+// Itens entram com stagger (A30: reveal do conteúdo do menu)
+.menu__list li,
+.menu__foot {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity var(--dur-m) var(--ease-out),
+    transform var(--dur-m) var(--ease-out);
+}
+
+:host(.is-open) {
+  .menu__list li,
+  .menu__foot {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(0.12s + var(--i, 0) * 0.05s);
+  }
+}

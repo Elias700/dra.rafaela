@@ -1,0 +1,6 @@
+src/clone
+dist
+node_modules
+.angular
+images-src
+.env*

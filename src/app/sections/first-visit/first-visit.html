@@ -1,0 +1,31 @@
+<section
+  id="primeira-consulta"
+  class="section first-visit"
+  aria-labelledby="primeira-consulta-title"
+>
+  <div class="container first-visit__grid">
+    <div class="section-head first-visit__head">
+      <h2 id="primeira-consulta-title" appSplitText="h">{{ content.title }}</h2>
+      <p class="lead" appSplitText="p" splitAria="none">{{ content.lead }}</p>
+    </div>
+
+    <div class="timeline">
+      <span class="timeline__line" appReveal="line" revealStart="top 75%" aria-hidden="true"></span>
+      <ol class="timeline__list" role="list">
+        @for (step of content.steps; track step.number; let i = $index) {
+          <li class="timeline__item">
+            <span class="timeline__num" appSplitText="a" splitAria="none" aria-hidden="true">{{
+              step.number
+            }}</span>
+            <div class="timeline__body" appReveal [revealDelay]="0.1">
+              <h3 class="timeline__title">
+                <span class="visually-hidden">Passo {{ i + 1 }}: </span>{{ step.title }}
+              </h3>
+              <p>{{ step.text }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+<section id="por-que" class="section care" data-bg="tint" aria-labelledby="por-que-title">
+  <span class="care__shape care__shape--a" appParallax="up" aria-hidden="true"></span>
+  <span class="care__shape care__shape--b" appParallax="down" aria-hidden="true"></span>
+
+  <div class="container care__inner" appScrollScene="exit">
+    <div class="section-head section-head--center">
+      <h2 id="por-que-title" class="care__title" appSpreadWords>{{ intro.title }}</h2>
+      <p class="lead" appReveal [revealDelay]="0.1">{{ intro.lead }}</p>
+    </div>
+
+    <ul class="care__grid" role="list" appReveal revealChildren="li">
+      @for (pillar of pillars; track pillar.title) {
+        <li class="pillar">
+          <span class="pillar__icon"><app-icon [name]="pillar.icon" /></span>
+          <h3 class="pillar__title">{{ pillar.title }}</h3>
+          <p class="pillar__text">{{ pillar.text }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

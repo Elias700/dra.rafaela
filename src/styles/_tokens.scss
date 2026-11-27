@@ -1,0 +1,103 @@
+// Design tokens
+// TODO(logo): paleta provisória (dourado do bordado do jaleco + turquesa do consultório).
+// Revisar --c-deep, --c-tint e --c-gold quando o logo oficial estiver em public/.
+
+:root {
+  // Cores base
+  --c-bg: #fbf8f3; // off-white quente (base)
+  --c-surface: #ffffff;
+  --c-tint: #e3efec; // apoio suave (água/sálvia)
+  --c-tint-strong: #cfe3df;
+  --c-sand: #f3ebdd; // nude
+  --c-deep: #123f3d; // títulos e CTAs (contraste 11:1 sobre --c-bg)
+  --c-deep-hover: #0d302f;
+  --c-deep-2: #0b2b2a; // seções escuras
+  --c-text: #1e2a29;
+  --c-muted: #4b5b59; // 6.6:1 sobre --c-bg
+  --c-line: rgb(18 63 61 / 0.14);
+  --c-gold: #b48a4a; // só decorativo (não usar em texto pequeno)
+  --c-gold-text: #7a5c22; // dourado legível sobre fundo claro e tint (≥ 4.9:1)
+  --c-gold-light: #d9b97a; // texto sobre fundo escuro (6:1 sobre --c-deep)
+  --c-on-dark: #f4f1ea;
+  --c-on-dark-muted: #c4d3d0;
+  --c-whatsapp: #17784a; // verde com 5.4:1 para texto branco
+  --c-whatsapp-hover: #11603b;
+  --c-error: #b42318;
+  --c-focus: #b06a00;
+
+  // Tipografia
+  --font-display: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  // O termo em vh segura os títulos em telas baixas (notebook, celular deitado).
+  --fs-display: clamp(2.25rem, min(1.35rem + 5.1vw, 10.5vh), 6rem);
+  --fs-h2: clamp(1.75rem, min(1.35rem + 2.9vw, 0.75rem + 6vh), 4rem);
+  --fs-h3: clamp(1.375rem, 1.15rem + 0.9vw, 1.875rem);
+  --fs-lead: clamp(1.125rem, 1.03rem + 0.45vw, 1.375rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --fs-small: 0.9375rem;
+  --fs-eyebrow: 0.875rem;
+
+  --lh-tight: 1.05;
+  --lh-heading: 1.12;
+  --lh-body: 1.65;
+
+  // Espaçamento fluido
+  --space-2xs: clamp(0.25rem, 0.22rem + 0.1vw, 0.375rem);
+  --space-xs: clamp(0.5rem, 0.45rem + 0.2vw, 0.75rem);
+  --space-s: clamp(0.75rem, 0.68rem + 0.35vw, 1rem);
+  --space-m: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+  --space-l: clamp(1.5rem, 1.3rem + 1vw, 2.5rem);
+  --space-xl: clamp(2rem, 1.6rem + 2vw, 4rem);
+  --space-2xl: clamp(3rem, 2.2rem + 4vw, 7rem);
+  --space-section: clamp(5rem, 3.6rem + 7vw, 11rem);
+
+  // max(): respeita o recorte da tela (notch) com o celular deitado.
+  --gutter: max(
+    clamp(1rem, 0.6rem + 2vw, 3rem),
+    env(safe-area-inset-left, 0px),
+    env(safe-area-inset-right, 0px)
+  );
+  --container: 80rem;
+  --container-narrow: 46rem;
+
+  // Formas
+  --radius-s: 0.625rem;
+  --radius-m: 1.25rem;
+  --radius-l: 2rem;
+  --radius-pill: 999px;
+  --radius-arch: 999px 999px var(--radius-m) var(--radius-m);
+
+  --shadow-soft:
+    0 1px 2px rgb(18 63 61 / 0.04), 0 8px 24px rgb(18 63 61 / 0.06),
+    0 32px 64px rgb(18 63 61 / 0.06);
+
+  // Movimento (port do clone, suavizado — ver docs/clone-analysis.md §2)
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --dur-s: 0.4s;
+  --dur-m: 0.8s;
+  --dur-l: 1.2s;
+
+  // Layout
+  --header-h: 4.5rem;
+  --tap: 2.75rem; // 44px
+
+  @media (min-width: 62rem) {
+    --header-h: 5.5rem;
+  }
+
+  // Notebook baixo
+  @media (min-width: 62rem) and (max-height: 50rem) {
+    --header-h: 4.5rem;
+    --space-section: clamp(4.5rem, 3rem + 4vw, 7rem);
+  }
+
+  // Celular deitado
+  @media (max-height: 30rem) {
+    --header-h: 3.75rem;
+    --space-section: 4rem;
+  }
+}

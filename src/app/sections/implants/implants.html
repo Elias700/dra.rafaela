@@ -1,0 +1,74 @@
+<section id="implantes" class="implants" data-bg="dark" aria-labelledby="implantes-title">
+  <!-- Entrada: janela em arco (A16) -->
+  <div class="implants__intro" appArchWindow>
+    <div class="implants__stage" data-arch-stage>
+      <div class="container implants__intro-content" data-arch-content>
+        <h2 id="implantes-title" class="implants__title" data-arch-item>{{ implants.title }}</h2>
+        <p class="lead implants__lead" data-arch-item>{{ implants.lead }}</p>
+        <div class="implants__for" data-arch-item>
+          <h3 class="implants__for-title">{{ implants.forWhomTitle }}</h3>
+          <p>{{ implants.forWhomText }}</p>
+        </div>
+      </div>
+      <div class="arch-panel arch-panel--l" data-arch-panel aria-hidden="true">
+        <span class="arch-panel__solid"></span><span class="arch-panel__corner"></span>
+      </div>
+      <div class="arch-panel arch-panel--r" data-arch-panel aria-hidden="true">
+        <span class="arch-panel__solid"></span><span class="arch-panel__corner"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Etapas -->
+  <div class="steps" appStepScene [style.--steps]="implants.steps.length">
+    <div class="steps__stage container" data-step-stage>
+      <div class="steps__nav" aria-hidden="true">
+        <span class="steps__indicator" data-step-indicator></span>
+        <ol role="list">
+          @for (step of implants.steps; track step.number) {
+            <li class="steps__tab" data-step-tab>
+              <span class="steps__tab-num">{{ step.number }}</span>
+              <span class="steps__tab-title">{{ step.title }}</span>
+            </li>
+          }
+        </ol>
+      </div>
+
+      <ol class="steps__panels" role="list" aria-label="Etapas do tratamento com implante">
+        @for (step of implants.steps; track step.number; let i = $index) {
+          <li class="steps__panel" data-step-panel>
+            <div class="steps__art" data-step-art>
+              <app-implant-art [step]="i" />
+            </div>
+            <div class="steps__body">
+              <span class="steps__num" aria-hidden="true">{{ step.number }}</span>
+              <h3 class="steps__title">
+                <span class="visually-hidden">Etapa {{ i + 1 }}: </span>{{ step.title }}
+              </h3>
+              <p class="steps__text">{{ step.text }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+
+  <div class="container implants__cta" appReveal>
+    <p>
+      Cada caso é avaliado individualmente. Na avaliação, você entende as etapas indicadas para
+      você.
+    </p>
+    @if (whatsapp) {
+      <a class="btn btn--whatsapp" [href]="whatsapp" target="_blank" rel="noopener">
+        <app-icon name="whatsapp" />
+        {{ implants.cta }}
+        <span class="visually-hidden">(abre em nova aba)</span>
+      </a>
+    } @else {
+      <a class="btn btn--light" href="#contato" (click)="goTo($event, 'contato')">
+        {{ implants.cta }}
+        <app-icon name="arrow-right" />
+      </a>
+    }
+  </div>
+</section>

@@ -1,0 +1,78 @@
+<section id="localizacao" class="section location" aria-labelledby="localizacao-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="localizacao-title" appSplitText="h">{{ content.title }}</h2>
+      <p class="lead" appReveal [revealDelay]="0.1">{{ content.lead }}</p>
+    </div>
+
+    <div class="location__grid">
+      <div class="location__card" appScrollScene="card-in">
+        <h3 class="location__card-title">{{ clinic.name }}</h3>
+        <address class="location__address">
+          <span class="location__row">
+            <app-icon name="pin" />
+            <span>
+              {{ addressLine }}
+              @if (address.street) {
+                <br />{{ address.street }}
+              }
+              <br />{{ cityLine }}
+              @if (address.postalCode) {
+                <br />CEP {{ address.postalCode }}
+              }
+            </span>
+          </span>
+        </address>
+
+        @if (hours) {
+          <div class="location__row">
+            <app-icon name="clock" />
+            <dl class="location__hours">
+              @for (h of hours; track h.label) {
+                <div>
+                  <dt>{{ h.label }}</dt>
+                  <dd>{{ h.opens }} às {{ h.closes }}</dd>
+                </div>
+              }
+            </dl>
+          </div>
+        }
+
+        @if (directionsUrl && wazeUrl) {
+          <div class="location__actions">
+            <a class="btn" [href]="directionsUrl" target="_blank" rel="noopener">
+              <app-icon name="navigation" />
+              Como chegar
+              <span class="visually-hidden">pelo Google Maps (abre em nova aba)</span>
+            </a>
+            <a class="btn btn--ghost" [href]="wazeUrl" target="_blank" rel="noopener">
+              Abrir no Waze
+              <span class="visually-hidden">(abre em nova aba)</span>
+            </a>
+          </div>
+        }
+      </div>
+
+      <div class="location__map" #mapBox>
+        <div class="location__map-bg" appScrollScene="settle" aria-hidden="true"></div>
+        <div class="location__marker" appPulse aria-hidden="true">
+          <span class="location__ring" data-pulse-ring></span>
+          <span class="location__ring" data-pulse-ring></span>
+          <span class="location__ring" data-pulse-ring></span>
+          <span class="location__dot"><app-icon name="pin" /></span>
+          <span class="location__marker-label">{{ address.mall }}</span>
+        </div>
+        @if (showMap() && mapSrc) {
+          <iframe
+            class="location__iframe"
+            [src]="mapSrc"
+            [title]="content.mapTitle"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        }
+      </div>
+    </div>
+  </div>
+</section>

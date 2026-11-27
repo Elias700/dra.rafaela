@@ -1,0 +1,62 @@
+<section id="sobre" class="section about" aria-labelledby="sobre-title">
+  <div class="container about__grid">
+    <figure class="about__figure">
+      <div class="about__mask" appImageMask data-parallax-wrap>
+        <div class="about__mask-inner">
+          <!-- TODO(foto): retrato do(a) profissional (3:4). -->
+          <div class="about__img photo-pending" appParallax="img" aria-hidden="true">
+            <app-icon name="tooth" />
+            <span>Foto pendente</span>
+          </div>
+        </div>
+      </div>
+      <figcaption class="about__caption" appReveal revealStart="top 95%">
+        <span class="about__caption-name">{{ dentist.name }}</span>
+        <span>{{ dentist.title }} · {{ dentist.cro }}</span>
+      </figcaption>
+    </figure>
+
+    <div class="about__text">
+      <h2 id="sobre-title" appSplitText="h">{{ about.title }}</h2>
+      <span class="about__line" appReveal="line-x" aria-hidden="true"></span>
+      @for (paragraph of about.paragraphs; track $index) {
+        <p class="lead" appSplitText="p" splitAria="none" [splitDelay]="$index * 0.1">
+          {{ paragraph }}
+        </p>
+      }
+
+      <ul class="about__values" role="list" appReveal revealChildren="li">
+        @for (value of about.values; track value.title) {
+          <li>
+            <app-icon name="check" />
+            <div>
+              <h3 class="about__value-title">{{ value.title }}</h3>
+              <p>{{ value.text }}</p>
+            </div>
+          </li>
+        }
+      </ul>
+
+      <dl class="about__creds" appReveal>
+        <div>
+          <dt>Registro</dt>
+          <dd>{{ dentist.cro }}</dd>
+        </div>
+        <div>
+          <dt>Foco</dt>
+          <dd>{{ specialty }}</dd>
+        </div>
+        @if (dentist.education) {
+          <div>
+            <dt>Formação</dt>
+            <dd>
+              @for (item of dentist.education; track item) {
+                <span class="about__edu">{{ item }}</span>
+              }
+            </dd>
+          </div>
+        }
+      </dl>
+    </div>
+  </div>
+</section>

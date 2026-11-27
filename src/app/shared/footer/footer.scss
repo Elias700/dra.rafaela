@@ -1,0 +1,132 @@
+@use 'styles/mixins' as *;
+
+:host {
+  display: block;
+  background: var(--c-deep-2);
+  color: var(--c-on-dark-muted);
+}
+
+.footer {
+  padding-block: var(--space-2xl) var(--space-l);
+}
+
+.footer__grid {
+  display: grid;
+  gap: var(--space-xl);
+
+  > * {
+    min-width: 0;
+  }
+
+  @include up($bp-sm) {
+    grid-template-columns: repeat(2, 1fr);
+
+    .footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @include up($bp-md) {
+    grid-template-columns: 1.4fr 1fr 1.2fr;
+
+    .footer__brand {
+      grid-column: auto;
+    }
+  }
+}
+
+.footer__brand {
+  display: grid;
+  gap: var(--space-m);
+  align-content: start;
+  color: var(--c-on-dark);
+}
+
+.footer__tagline {
+  max-width: 22rem;
+  color: var(--c-on-dark-muted);
+}
+
+.footer__title {
+  margin-bottom: var(--space-s);
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-gold-light);
+}
+
+.footer__links {
+  display: grid;
+  margin: 0;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--c-on-dark);
+    text-decoration: none;
+
+    @include hover {
+      text-decoration: underline;
+      text-underline-offset: 0.25em;
+    }
+  }
+}
+
+.footer__address {
+  display: grid;
+  gap: 0.35rem;
+  font-style: normal;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--c-on-dark);
+  }
+}
+
+.footer__social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--tap);
+  margin-top: var(--space-s);
+  color: var(--c-on-dark);
+}
+
+.footer__legal {
+  display: grid;
+  gap: var(--space-l);
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-l);
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+  font-size: var(--fs-small);
+}
+
+.footer__cfo {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--c-on-dark);
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--c-on-dark);
+  }
+}

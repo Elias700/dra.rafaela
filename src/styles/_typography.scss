@@ -1,0 +1,77 @@
+// Fontes auto-hospedadas (OFL) — public/fonts. A do título é pré-carregada no index.html.
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/fraunces-latin-wght.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url('/fonts/manrope-latin-wght.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--c-text);
+  background: var(--c-bg);
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-heading);
+  color: var(--c-deep);
+  letter-spacing: -0.015em;
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+.display {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.03em;
+}
+
+h2,
+.h2 {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.025em;
+}
+
+h3,
+.h3 {
+  font-size: var(--fs-h3);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--c-muted);
+  text-wrap: pretty;
+}
+
+em.accent,
+.accent {
+  font-style: normal;
+  color: var(--c-gold-text);
+}
+
+[data-bg='dark'] .accent {
+  color: var(--c-gold-light);
+}

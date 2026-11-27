@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dentista | Nome da Clínica</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link
+      rel="preload"
+      href="/fonts/fraunces-latin-wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/manrope-latin-wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!--
+    Animações: o estado inicial "escondido" só existe com JS (AGENTS.md §4).
+    - js-anim: JS ativo e sem reduced-motion.
+    - intro-pending: intro do hero em CSS (1x por sessão); sai depois que termina.
+  -->
+    <script>
+      (function () {
+        var d = document.documentElement;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+          return;
+        d.classList.add('js-anim');
+        try {
+          if (sessionStorage.getItem('site-intro') === '1') return;
+          sessionStorage.setItem('site-intro', '1');
+        } catch (e) {}
+        d.classList.add('intro-pending');
+        setTimeout(function () {
+          d.classList.remove('intro-pending');
+        }, 2500);
+      })();
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

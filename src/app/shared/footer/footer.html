@@ -1,0 +1,66 @@
+<footer class="footer">
+  <div class="container footer__grid" appReveal revealChildren=".footer__col" revealStart="top 92%">
+    <div class="footer__col footer__brand">
+      <app-logo class="logo--light" />
+      <p class="footer__tagline">
+        Atendimento odontológico humanizado, com foco em implantes dentários.
+      </p>
+    </div>
+
+    <nav class="footer__col" aria-label="Rodapé">
+      <h2 class="footer__title">Navegue</h2>
+      <ul role="list" class="footer__links">
+        @for (item of nav; track item.id) {
+          <li>
+            <a [href]="'/#' + item.id" (click)="go($event, item.id)">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="footer__col">
+      <h2 class="footer__title">Onde estamos</h2>
+      <address class="footer__address">
+        <span>{{ addressLine }}</span>
+        @if (address.street) {
+          <span>{{ address.street }}</span>
+        }
+        <span>{{ cityLine }}</span>
+        @if (address.postalCode) {
+          <span>CEP {{ address.postalCode }}</span>
+        }
+        @if (contact.phoneDisplay && contact.phoneE164) {
+          <a [href]="'tel:' + contact.phoneE164">{{ contact.phoneDisplay }}</a>
+        }
+        @if (contact.email) {
+          <a [href]="'mailto:' + contact.email">{{ contact.email }}</a>
+        }
+      </address>
+      @if (contact.instagram) {
+        <a class="footer__social" [href]="contact.instagram" target="_blank" rel="noopener">
+          <app-icon name="instagram" />
+          <span>Instagram</span>
+          <span class="visually-hidden">(abre em nova aba)</span>
+        </a>
+      }
+    </div>
+  </div>
+
+  <div class="container footer__legal">
+    <!-- Identificação obrigatória (Código de Ética Odontológica / CFO) -->
+    <div class="footer__cfo">
+      <p>
+        <strong>{{ dentist.name }}</strong> — {{ dentist.title }} — {{ dentist.cro }}
+      </p>
+      <p>{{ specialty }}</p>
+      <p>
+        {{ clinic.name }} — {{ clinic.epao }} — Responsável técnico(a): {{ dentist.name }},
+        {{ dentist.cro }}
+      </p>
+    </div>
+    <div class="footer__bottom">
+      <p>© {{ year }} {{ clinic.name }}. Todos os direitos reservados.</p>
+      <a routerLink="/politica-de-privacidade">Política de Privacidade</a>
+    </div>
+  </div>
+</footer>

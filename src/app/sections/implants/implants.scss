@@ -1,0 +1,303 @@
+@use 'styles/mixins' as *;
+
+:host {
+  display: block;
+}
+
+.implants {
+  position: relative;
+  background: var(--c-deep-2);
+  color: var(--c-on-dark);
+  padding-bottom: var(--space-section);
+}
+
+// ---------------------------------------------------------------------------
+// Entrada (A16)
+// ---------------------------------------------------------------------------
+.implants__intro {
+  position: relative;
+}
+
+.implants__stage {
+  position: relative;
+  padding-block: var(--space-section) var(--space-xl);
+}
+
+.implants__intro-content {
+  display: grid;
+  gap: var(--space-m);
+  justify-items: center;
+  text-align: center;
+}
+
+.implants__title {
+  max-width: 14ch;
+  font-size: clamp(2rem, min(1.4rem + 3.8vw, 9vh), 5rem);
+  color: var(--c-on-dark);
+}
+
+.implants__lead {
+  max-width: 44rem;
+}
+
+.implants__for {
+  max-width: 40rem;
+  margin-top: var(--space-s);
+  padding: var(--space-m) var(--space-l);
+  border-radius: var(--radius-m);
+  background: rgb(255 255 255 / 0.05);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);
+  text-align: left;
+  color: var(--c-on-dark-muted);
+}
+
+.implants__for-title {
+  margin-bottom: 0.35rem;
+  font-size: 1.25rem;
+  color: var(--c-gold-light);
+}
+
+.arch-panel {
+  display: none;
+}
+
+// Desktop com movimento (classe aplicada pela diretiva)
+.is-arch {
+  height: 240svh;
+
+  .implants__stage {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    height: 100svh;
+    padding-block: var(--header-h) var(--space-l);
+    overflow: hidden;
+  }
+
+  .implants__intro-content {
+    gap: var(--space-s);
+  }
+
+  .arch-panel {
+    --arch-r: min(17vw, 30svh);
+    --arch-top: 14svh;
+
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
+    z-index: 2;
+    display: block;
+    width: 50%;
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .arch-panel--l {
+    left: 0;
+  }
+
+  .arch-panel--r {
+    right: 0;
+  }
+
+  .arch-panel__solid,
+  .arch-panel__corner {
+    position: absolute;
+    top: 0;
+  }
+
+  .arch-panel__solid {
+    bottom: 0;
+    width: calc(100% - var(--arch-r) + 1px);
+    background: var(--c-bg);
+  }
+
+  .arch-panel__corner {
+    width: var(--arch-r);
+    height: calc(var(--arch-top) + var(--arch-r));
+  }
+
+  .arch-panel--l {
+    .arch-panel__solid {
+      left: 0;
+    }
+
+    .arch-panel__corner {
+      right: 0;
+      background: radial-gradient(
+        circle at 100% 100%,
+        transparent var(--arch-r),
+        var(--c-bg) calc(var(--arch-r) + 0.5px)
+      );
+    }
+  }
+
+  .arch-panel--r {
+    .arch-panel__solid {
+      right: 0;
+    }
+
+    .arch-panel__corner {
+      left: 0;
+      background: radial-gradient(
+        circle at 0% 100%,
+        transparent var(--arch-r),
+        var(--c-bg) calc(var(--arch-r) + 0.5px)
+      );
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Etapas — padrão (mobile / reduced-motion / sem JS): lista vertical
+// ---------------------------------------------------------------------------
+.steps__nav {
+  display: none;
+}
+
+.steps__panels {
+  display: grid;
+  gap: var(--space-xl);
+  margin: 0;
+  padding: var(--space-xl) 0 0;
+
+  @include up(37.5em) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.steps__panel {
+  display: grid;
+  gap: var(--space-m);
+  align-content: start;
+}
+
+.steps__art {
+  width: min(13rem, 60%);
+  aspect-ratio: 1;
+  color: var(--c-on-dark);
+}
+
+.steps__body {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.steps__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 2rem + 2vw, 4rem);
+  line-height: 1;
+  color: var(--c-gold-light);
+}
+
+.steps__title {
+  font-size: var(--fs-h3);
+  color: var(--c-on-dark);
+}
+
+.steps__text {
+  max-width: 34rem;
+  color: var(--c-on-dark-muted);
+}
+
+// Desktop com movimento: palco fixo e troca de etapa
+.steps.is-steps {
+  height: calc(var(--steps) * 60svh + 100svh);
+
+  .steps__stage {
+    position: sticky;
+    top: 0;
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.8fr) 1.6fr;
+    gap: var(--space-2xl);
+    align-items: center;
+    height: 100svh;
+    padding-top: var(--header-h);
+  }
+
+  .steps__nav {
+    position: relative;
+    display: block;
+
+    ol {
+      display: grid;
+      margin: 0;
+      padding: 0 0 0 1.5rem;
+      list-style: none;
+      border-left: 1px solid rgb(255 255 255 / 0.14);
+    }
+  }
+
+  .steps__indicator {
+    position: absolute;
+    left: -1px;
+    top: 0;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--c-gold-light);
+  }
+
+  .steps__tab {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    padding-block: 0.85rem;
+    color: rgb(244 241 234 / 0.5);
+    transition: color var(--dur-m) var(--ease-out);
+
+    &.is-active {
+      color: var(--c-on-dark);
+    }
+  }
+
+  .steps__tab-num {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    color: var(--c-gold-light);
+  }
+
+  .steps__tab-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  .steps__panels {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0;
+    min-height: 26rem;
+  }
+
+  .steps__panel {
+    grid-area: 1 / 1;
+    grid-template-columns: minmax(12rem, 18rem) 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .steps__art {
+    width: 100%;
+  }
+
+  .steps__num {
+    font-size: clamp(4rem, 2rem + 4vw, 7rem);
+  }
+}
+
+.implants__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-m);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-l);
+  border-top: 1px solid rgb(255 255 255 / 0.12);
+
+  p {
+    max-width: 34rem;
+    color: var(--c-on-dark-muted);
+  }
+}

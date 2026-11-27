@@ -1,0 +1,64 @@
+<section id="tratamentos" class="treatments" aria-labelledby="tratamentos-title">
+  <div class="treatments__area" appHorizontalScroll>
+    <div class="treatments__screen" data-hscroll-screen>
+      <div class="container treatments__head">
+        <h2 id="tratamentos-title" data-hscroll-drift appSplitText="h">{{ intro.title }}</h2>
+        <p class="lead">{{ intro.lead }}</p>
+      </div>
+
+      <ul class="treatments__track" role="list" data-hscroll-track>
+        @for (item of items; track item.id; let i = $index) {
+          <li class="card" [class.card--featured]="item.featured" data-hscroll-item>
+            <div class="card__top">
+              <span class="card__icon"><app-icon [name]="item.icon" /></span>
+              <span class="card__num" aria-hidden="true">0{{ i + 1 }}</span>
+            </div>
+            <h3 class="card__title">{{ item.name }}</h3>
+            <p class="card__text">{{ item.description }}</p>
+            <div class="card__links">
+              @if (item.moreHref) {
+                <a class="text-link" [href]="item.moreHref" (click)="goTo($event, item.moreHref)">
+                  {{ item.moreLabel }}
+                  <app-icon name="arrow-right" />
+                </a>
+              }
+              @if (item.whatsapp) {
+                <a class="text-link" [href]="item.whatsapp" target="_blank" rel="noopener">
+                  Agendar avaliação
+                  <span class="visually-hidden"
+                    >sobre {{ item.shortName }} pelo WhatsApp (abre em nova aba)</span
+                  >
+                  <app-icon name="arrow-up-right" />
+                </a>
+              } @else {
+                <a class="text-link" href="#contato" (click)="goTo($event, '#contato')">
+                  Agendar avaliação
+                  <span class="visually-hidden">sobre {{ item.shortName }}</span>
+                  <app-icon name="arrow-right" />
+                </a>
+              }
+            </div>
+          </li>
+        }
+        <li class="card card--cta" data-hscroll-item>
+          <p class="card__cta-title">Não sabe por onde começar?</p>
+          <p class="card__text">
+            Na avaliação, ouvimos você e explicamos as opções indicadas para o seu caso.
+          </p>
+          @if (generalWhatsapp) {
+            <a class="btn btn--light" [href]="generalWhatsapp" target="_blank" rel="noopener">
+              <app-icon name="whatsapp" />
+              Falar pelo WhatsApp
+              <span class="visually-hidden">(abre em nova aba)</span>
+            </a>
+          } @else {
+            <a class="btn btn--light" href="#contato" (click)="goTo($event, '#contato')">
+              Agendar avaliação
+              <app-icon name="arrow-right" />
+            </a>
+          }
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

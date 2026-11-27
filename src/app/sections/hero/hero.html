@@ -1,0 +1,86 @@
+<section id="inicio" class="hero" aria-labelledby="hero-title">
+  <div class="hero__sticky">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <h1 id="hero-title" class="display hero__statement">
+          <span class="visually-hidden">{{ hero.statementStart }} {{ hero.statementAccent }}</span>
+          <span class="hero__words" aria-hidden="true">
+            @for (word of words; track $index) {
+              <span class="hero__word" [class.accent]="word.accent" [style.--w]="$index">{{
+                word.text
+              }}</span>{{ ' ' }}
+            }
+          </span>
+        </h1>
+
+        <p class="lead hero__subtitle" data-intro style="--d: 0">{{ hero.subtitle }}</p>
+
+        <div class="hero__actions" data-intro style="--d: 1">
+          @if (whatsapp) {
+            <a
+              class="btn btn--whatsapp"
+              [href]="whatsapp"
+              target="_blank"
+              rel="noopener"
+              appMagnetic
+            >
+              <app-icon name="whatsapp" />
+              {{ hero.primaryCta }} pelo WhatsApp
+              <span class="visually-hidden">(abre em nova aba)</span>
+            </a>
+          } @else {
+            <a class="btn" href="#contato" (click)="goTo($event, 'contato')" appMagnetic>
+              {{ hero.primaryCta }}
+              <app-icon name="arrow-right" />
+            </a>
+          }
+          <a class="btn btn--ghost" href="#tratamentos" (click)="goTo($event, 'tratamentos')">
+            {{ hero.secondaryCta }}
+          </a>
+        </div>
+
+        <ul class="hero__creds" role="list" data-intro style="--d: 2">
+          <li>{{ dentist.name }} · {{ dentist.title }} · {{ dentist.cro }}</li>
+          <li>{{ specialty }}</li>
+          @if (rating && reviewCount && googleUrl) {
+            <li>
+              <a class="hero__rating" [href]="googleUrl" target="_blank" rel="noopener">
+                <app-icon name="star" />
+                {{ rating.toFixed(1).replace('.', ',') }} no Google · {{ reviewCount }} avaliações
+                <span class="visually-hidden">(abre em nova aba)</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="hero__visual">
+        <div class="hero__media">
+          <!-- TODO(foto): foto do(a) profissional (4:5). Ver app.config.ts (loader de imagens). -->
+          <div class="hero__img-wrap photo-pending" aria-hidden="true">
+            <app-icon name="tooth" />
+            <span>Foto pendente</span>
+          </div>
+          <div class="hero__veil" aria-hidden="true"></div>
+        </div>
+
+        <div class="hero__badge" aria-hidden="true">
+          <svg viewBox="0 0 120 120" appSpinBadge>
+            <defs>
+              <path id="badge-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
+            </defs>
+            <text>
+              <textPath href="#badge-circle" textLength="288">{{ hero.badgeText }}</textPath>
+            </text>
+          </svg>
+          <app-icon name="tooth" />
+        </div>
+      </div>
+    </div>
+
+    <a class="hero__scroll" href="#sobre" (click)="goTo($event, 'sobre')" data-intro style="--d: 3">
+      <span>Role para conhecer</span>
+      <span class="hero__scroll-line" aria-hidden="true"></span>
+    </a>
+  </div>
+</section>

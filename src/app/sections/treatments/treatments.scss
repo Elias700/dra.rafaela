@@ -1,0 +1,253 @@
+@use 'styles/mixins' as *;
+
+:host {
+  display: block;
+}
+
+.treatments {
+  position: relative;
+  padding-block: var(--space-section);
+  background: var(--c-bg);
+}
+
+.treatments__head {
+  display: grid;
+  gap: var(--space-m);
+  justify-items: start;
+  margin-bottom: var(--space-xl);
+
+  h2 {
+    max-width: 16ch;
+  }
+
+  .lead {
+    max-width: 38rem;
+  }
+}
+
+// Layout padrão (mobile, tablet, reduced-motion, sem JS): grade
+.treatments__track {
+  @include container;
+  display: grid;
+  gap: var(--space-m);
+  margin: 0;
+
+  @include up(37.5em) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include up($bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  padding: var(--space-l);
+  border-radius: var(--radius-l);
+  background: var(--c-surface);
+  box-shadow: 0 0 0 1px var(--c-line);
+  transition:
+    transform var(--dur-m) var(--ease-out),
+    box-shadow var(--dur-m) var(--ease-out);
+
+  @include hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 0 0 1px var(--c-line),
+      var(--shadow-soft);
+
+    .card__icon {
+      background: var(--c-deep);
+      color: var(--c-on-dark);
+    }
+  }
+}
+
+.card--featured {
+  background: var(--c-tint);
+  box-shadow: 0 0 0 1px var(--c-tint-strong);
+
+  .card__icon {
+    background: var(--c-surface);
+  }
+}
+
+.card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-s);
+}
+
+.card__icon {
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  background: var(--c-tint);
+  color: var(--c-deep);
+  transition:
+    background-color var(--dur-m) var(--ease-out),
+    color var(--dur-m) var(--ease-out);
+
+  app-icon {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+}
+
+.card__num {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: var(--c-gold-text);
+}
+
+.card__title {
+  font-size: var(--fs-h3);
+}
+
+.card__text {
+  color: var(--c-muted);
+}
+
+.card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-m);
+  margin-top: auto;
+  padding-top: var(--space-s);
+}
+
+.card--cta {
+  justify-content: center;
+  background: var(--c-deep);
+  color: var(--c-on-dark);
+  box-shadow: none;
+
+  .card__text {
+    color: var(--c-on-dark-muted);
+  }
+
+  .btn {
+    align-self: flex-start;
+    margin-top: var(--space-s);
+  }
+
+  @include up(37.5em) {
+    grid-column: 1 / -1;
+  }
+
+  @include up($bp-lg) {
+    grid-column: auto;
+  }
+}
+
+.card__cta-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-heading);
+  color: var(--c-on-dark);
+}
+
+// ---------------------------------------------------------------------------
+// Desktop com JS e movimento: scroll horizontal (A18). A diretiva adiciona .is-hscroll
+// e define a altura da área.
+// ---------------------------------------------------------------------------
+.treatments:has(.is-hscroll) {
+  padding-block: 0;
+}
+
+.is-hscroll {
+  .treatments__screen {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100svh;
+    padding-top: var(--header-h);
+    overflow: hidden;
+  }
+
+  .treatments__head {
+    margin-bottom: var(--space-l);
+  }
+
+  .treatments__track {
+    display: flex;
+    gap: var(--space-l);
+    max-width: none;
+    width: 100%;
+    padding-left: max(var(--gutter), calc((100vw - var(--container)) / 2));
+    will-change: transform;
+
+    &::after {
+      content: '';
+      flex: 0 0 var(--gutter);
+    }
+  }
+
+  .card {
+    flex: 0 0 clamp(20rem, 26vw, 25rem);
+    min-height: min(26rem, 52svh);
+  }
+
+  // Notebook: cabeçalho e cards compactos para caber inteiros na tela.
+  @media (max-height: 56em) {
+    .treatments__head {
+      gap: var(--space-xs);
+      margin-bottom: var(--space-m);
+
+      h2 {
+        max-width: none;
+        font-size: clamp(1.75rem, 0.5rem + 4.4vh, 3rem);
+      }
+
+      .lead {
+        max-width: none;
+        font-size: 1.0625rem;
+      }
+    }
+
+    .card {
+      flex-basis: clamp(20rem, 27vw, 23rem);
+      gap: var(--space-xs);
+      padding: 1.5rem;
+      min-height: 0;
+    }
+
+    .card__top {
+      margin-bottom: 0;
+    }
+
+    .card__icon {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .card__title,
+    .card__cta-title {
+      font-size: 1.5rem;
+    }
+
+    .card__text {
+      line-height: 1.5;
+    }
+  }
+
+  @media (max-height: 43em) {
+    .card {
+      flex-basis: 23rem;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .card__text {
+      font-size: 0.9375rem;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Nome da Clínica — Odontologia",
+  "short_name": "Nome da Clínica",
+  "description": "Atendimento odontológico humanizado."
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fbf8f3",
+  "theme_color": "#123f3d",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

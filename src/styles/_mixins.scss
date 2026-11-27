@@ -1,0 +1,66 @@
+// Breakpoints (mobile-first). 62em = 992px, o mesmo breakpoint do clone.
+$bp-sm: 30em; // 480
+$bp-md: 48em; // 768
+$bp-lg: 62em; // 992
+$bp-nav: 72em; // 1152: menu completo + logo + botão cabem em uma linha
+$bp-xl: 80em; // 1280
+$bp-2xl: 120em; // 1920
+$h-phone-land: 30em; // altura de celular deitado
+
+@mixin up($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin down($bp) {
+  @media (max-width: calc(#{$bp} - 0.02em)) {
+    @content;
+  }
+}
+
+/** Celular deitado: largo e muito baixo. */
+@mixin phone-landscape {
+  @media (min-width: 35em) and (max-height: $h-phone-land) and (orientation: landscape) {
+    @content;
+  }
+}
+
+/** Hover só em dispositivos com ponteiro preciso. */
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}
+
+@mixin container($max: var(--container)) {
+  width: 100%;
+  max-width: calc(#{$max} + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin focus-ring($offset: 3px) {
+  outline: 2px solid var(--c-focus);
+  outline-offset: $offset;
+}

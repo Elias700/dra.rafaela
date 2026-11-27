@@ -1,0 +1,74 @@
+<article class="privacy container--narrow" aria-labelledby="privacy-title">
+  <a class="text-link privacy__back" routerLink="/">← Voltar para o site</a>
+  <h1 id="privacy-title">Política de Privacidade</h1>
+  <p class="privacy__updated">Última atualização: {{ updated }}</p>
+
+  <p class="privacy__draft" role="note">
+    Texto-base em revisão. Em caso de dúvida sobre seus dados, fale diretamente com o consultório.
+  </p>
+
+  <h2>1. Quem somos</h2>
+  <p>
+    Este site pertence ao consultório {{ clinic.name }} ({{ clinic.epao }}), com endereço em
+    {{ address.mall }}, {{ address.city }} – {{ address.region }}, sob responsabilidade técnica de
+    {{ dentist.name }}, {{ dentist.title }}, {{ dentist.cro }}. O {{ clinic.name }} é o controlador
+    dos dados pessoais tratados por meio deste site.
+  </p>
+
+  <h2>2. Quais dados coletamos</h2>
+  <p>Pelo formulário de contato, coletamos somente:</p>
+  <ul>
+    <li>nome;</li>
+    <li>telefone/WhatsApp;</li>
+    <li>tratamento de interesse;</li>
+    <li>melhor período para contato.</li>
+  </ul>
+  <p>
+    <strong>Não pedimos informações sobre a sua saúde pelo site.</strong> Por favor, não envie dados
+    clínicos pelo formulário. Essas informações são tratadas apenas na consulta, com o sigilo
+    profissional previsto no Código de Ética Odontológica.
+  </p>
+
+  <h2>3. Para que usamos</h2>
+  <p>
+    Usamos os dados apenas para entrar em contato com você e agendar a sua avaliação, com base no
+    seu consentimento (art. 7º, I, da LGPD). Não vendemos nem compartilhamos seus dados para fins de
+    publicidade.
+  </p>
+
+  <h2>4. Com quem compartilhamos</h2>
+  <p>
+    Os dados podem passar por ferramentas usadas para receber as mensagens (por exemplo, o WhatsApp
+    ou o serviço de envio do formulário), apenas para a finalidade acima.
+  </p>
+
+  <h2>5. Mapa e serviços de terceiros</h2>
+  <p>
+    A seção de localização exibe um mapa do Google Maps, que pode coletar dados de navegação
+    conforme a política de privacidade do Google. Os botões “Como chegar” e “Abrir no Waze” levam a
+    serviços externos.
+  </p>
+
+  <h2>6. Por quanto tempo guardamos</h2>
+  <p>
+    Guardamos os dados do formulário apenas pelo tempo necessário para o agendamento e, depois
+    disso, eles são excluídos, salvo obrigação legal.
+  </p>
+
+  <h2>7. Seus direitos</h2>
+  <p>
+    Você pode, a qualquer momento, pedir acesso, correção ou exclusão dos seus dados, ou retirar o
+    seu consentimento.
+    @if (contact.email) {
+      Para isso, escreva para <a [href]="'mailto:' + contact.email">{{ contact.email }}</a>.
+    } @else {
+      Para isso, fale com o consultório pelos canais de contato do site.
+    }
+  </p>
+
+  <h2>8. Cookies</h2>
+  <p>
+    Este site não usa cookies de publicidade. Ele pode guardar no seu navegador uma informação
+    técnica para não repetir a animação de abertura na mesma visita.
+  </p>
+</article>

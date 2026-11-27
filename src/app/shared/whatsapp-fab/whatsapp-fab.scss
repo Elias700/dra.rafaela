@@ -1,0 +1,66 @@
+@use 'styles/mixins' as *;
+
+.fab {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  background: var(--c-whatsapp);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(120%);
+  transition:
+    transform var(--dur-l) var(--ease-out),
+    opacity var(--dur-m) var(--ease-out),
+    visibility 0s linear var(--dur-l),
+    background-color var(--dur-s) var(--ease-out);
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      transform var(--dur-l) var(--ease-out),
+      opacity var(--dur-m) var(--ease-out),
+      visibility 0s,
+      background-color var(--dur-s) var(--ease-out);
+  }
+
+  app-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  @include hover {
+    background: var(--c-whatsapp-hover);
+
+    .fab__arc circle {
+      stroke-dasharray: 50 100;
+    }
+  }
+}
+
+.fab__arc {
+  position: absolute;
+  inset: -6px;
+  width: calc(100% + 12px);
+  height: calc(100% + 12px);
+  transform: rotate(-90deg);
+  pointer-events: none;
+
+  circle {
+    fill: none;
+    stroke: var(--c-whatsapp);
+    stroke-width: 1.5;
+    stroke-dasharray: 4.17 100; // 4,17% como no clone
+    stroke-linecap: round;
+    transition: stroke-dasharray var(--dur-m) var(--ease-in-out);
+  }
+}
